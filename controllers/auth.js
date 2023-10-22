@@ -10,7 +10,7 @@ const { JWT_SECRET, FRONTEND_URL_LOCALHOST, FRONTEND_URL_DEPLOY } =
   process.env;
 
 const googleAuth = (req, res) => {
-  const url = `${FRONTEND_URL_DEPLOY}/auth?token=${req.user.token}`;
+  const url = `${FRONTEND_URL_LOCALHOST}?token=${req.user.token}`;
 
   res.redirect(url);
 };
