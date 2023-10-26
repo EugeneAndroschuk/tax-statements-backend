@@ -2,6 +2,19 @@ const { Company } = require("../models");
 const { companyJoiSchemas } = require("../schemas");
 const { HttpError } = require("../utils");
 
+const getAllCompanies = async (req, res, next) => {
+  try {
+    const allCompanies = await Company.find();
+    if (!allCompanies) throw HttpError(404, "Not Found");
+
+    const total = await Company.countDocuments();
+
+    res.status(200).json({ total, allCompanies });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getCompanyById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -60,6 +73,7 @@ const updateCompanyById = async (req, res, next) => {
 };
 
 module.exports = {
+    getAllCompanies,
   getCompanyById,
   addCompany,
   removeCompanyById,
