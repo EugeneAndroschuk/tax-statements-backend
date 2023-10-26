@@ -2,7 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
-const { authRouter } = require("./routes/api");
+const { authRouter, companiesRouter } = require("./routes/api");
 
 const app = express()
 
@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.static("public"))
 
 app.use('/api/users', authRouter);
-// app.use('/api/drives', drivesRouter);
+app.use('/api/companies', companiesRouter);
 // app.use("/api/clients", clientsRouter);
 
 app.use((req, res) => {
