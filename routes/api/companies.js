@@ -4,7 +4,7 @@ const { isValidId, authenticate } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get("/", authenticate, isValidId, ctrlCompanies.getAllCompanies);
+router.get("/", authenticate, ctrlCompanies.getAllCompanies);
 
 router.get("/:id", authenticate, isValidId, ctrlCompanies.getCompanyById);
 
