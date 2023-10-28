@@ -14,7 +14,7 @@ const vatDeclarationSchema = new Schema(
       type: Number,
       required: [true, "VAT payable is required"],
     },
-    company: {
+    owner: {
       type: Schema.Types.ObjectId,
       ref: "company",
     },
