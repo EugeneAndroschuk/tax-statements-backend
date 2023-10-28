@@ -29,12 +29,11 @@ const getCompanyById = async (req, res, next) => {
 
 const addCompany = async (req, res, next) => {
   try {
-    const { _id } = req.user;
 
     const { error } = companyJoiSchemas.addCompanySchema.validate(req.body);
     if (error) throw HttpError(400, "missing required name field");
 
-    await Company.create({ ...req.body, owner: _id });
+    await Company.create({ ...req.body });
 
     res.status(201).json({ message: "Add sucsessful" });
   } catch (error) {
