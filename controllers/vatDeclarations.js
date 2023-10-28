@@ -35,7 +35,7 @@ const addVatDeclaration = async (req, res, next) => {
     const { error } = vatDeclarationJoiSchemas.addVatDeclarationSchema.validate(req.body);
     if (error) throw HttpError(400, "missing required name field");
 
-    await VatDeclaration.create({ ...req.body, owner: req.body.company });
+    await VatDeclaration.create({ ...req.body });
 
     res.status(201).json({ message: "Add sucsessful" });
   } catch (error) {
