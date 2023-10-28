@@ -4,7 +4,7 @@ const { HttpError } = require("../utils");
 
 const getAllVatDeclarations = async (req, res, next) => {
   try {
-    const allVatDeclarations = await VatDeclaration.find().populate("company");
+    const allVatDeclarations = await VatDeclaration.find().populate("company").sort({period: 1});
     if (!allVatDeclarations) throw HttpError(404, "Not Found");
 
     const total = await VatDeclaration.countDocuments();
