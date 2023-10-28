@@ -4,7 +4,7 @@ const { HttpError } = require("../utils");
 
 const getAllVatDeclarations = async (req, res, next) => {
   try {
-    const allVatDeclarations = await VatDeclaration.find();
+    const allVatDeclarations = await VatDeclaration.find().populate("company");
     if (!allVatDeclarations) throw HttpError(404, "Not Found");
 
     const total = await VatDeclaration.countDocuments();
@@ -30,8 +30,6 @@ const getVatDeclarationById = async (req, res, next) => {
 const addVatDeclaration = async (req, res, next) => {
     try {
       
-        console.log(req.body);
-    
     const { error } = vatDeclarationJoiSchemas.addVatDeclarationSchema.validate(req.body);
     if (error) throw HttpError(400, "missing required name field");
 
