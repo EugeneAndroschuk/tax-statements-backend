@@ -28,7 +28,9 @@ const getVatDeclarationById = async (req, res, next) => {
 };
 
 const addVatDeclaration = async (req, res, next) => {
-  try {
+    try {
+      
+        console.log(req.body);
     
     const { error } = vatDeclarationJoiSchemas.addVatDeclarationSchema.validate(req.body);
     if (error) throw HttpError(400, "missing required name field");
