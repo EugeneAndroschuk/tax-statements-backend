@@ -19,6 +19,10 @@ const userSchema = new Schema(
     token: String,
     avatarURL: String,
     googleId: { type: String, default: "" },
+    isConfirmed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: false }
 );
