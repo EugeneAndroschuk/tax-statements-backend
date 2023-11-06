@@ -8,6 +8,13 @@ router.get("/", authenticate, ctrlVatDeclarations.getAllVatDeclarations);
 
 router.get("/:id", authenticate, isValidId, ctrlVatDeclarations.getVatDeclarationById);
 
+router.get(
+  "/:id",
+  authenticate,
+  isValidId,
+  ctrlVatDeclarations.getVatDeclarationsByCompany
+);
+
 router.post("/", authenticate, ctrlVatDeclarations.addVatDeclaration);
 
 router.delete(
