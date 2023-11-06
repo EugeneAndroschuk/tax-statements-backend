@@ -18,12 +18,12 @@ const getAllVatDeclarations = async (req, res, next) => {
 const getVatDeclarationsByCompany = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const vatDeclarationsByCompany = await VatDeclaration.findById(id)
+    const vatDeclarationsByCompany = await VatDeclaration.findById({company: id})
       .populate("company")
       .sort({ period: -1 });
     if (!vatDeclarationsByCompany) throw HttpError(404, "Not Found");
 
-    const total = await VatDeclaration.countDocuments(id);
+    const total = await VatDeclaration.countDocuments({ company: id });
 
     res.status(200).json({ total, vatDeclarationsByCompany });
   } catch (error) {
