@@ -4,10 +4,14 @@ const { HttpError } = require("../utils");
 
 const getAllVatDeclarations = async (req, res, next) => {
   try {
-    const allVatDeclarations = await VatDeclaration.find().populate("company").sort({period: -1});
+    const { companyId } = req.query;
+    const FilterOptions = companyId ? { company: companyId } : {};
+    const allVatDeclarations = await VatDeclaration.find(FilterOptions)
+      .populate("company")
+      .sort({ period: -1 });
     if (!allVatDeclarations) throw HttpError(404, "Not Found");
 
-    const total = await VatDeclaration.countDocuments();
+    const total = await VatDeclaration.countDocuments(FilterOptions);
 
     res.status(200).json({ total, allVatDeclarations });
   } catch (error) {
@@ -15,21 +19,23 @@ const getAllVatDeclarations = async (req, res, next) => {
   }
 };
 
-const getVatDeclarationsByCompany = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const vatDeclarationsByCompany = await VatDeclaration.find({company: id}, "")
-      .populate("company")
-      .sort({ period: -1 });
-    if (!vatDeclarationsByCompany) throw HttpError(404, "Not Found");
+// const getVatDeclarationsByCompany = async (req, res, next) => {
+//   try {
+//     const { companyId } = req.query;
+//     console.log(companyId);
+//     const vatDeclarationsByCompany = await VatDeclaration.find(
+//       { company: companyId })
+//       .populate("company")
+//       .sort({ period: -1 });
+//     if (!vatDeclarationsByCompany) throw HttpError(404, "Not Found");
 
-    const total = await VatDeclaration.countDocuments({ company: id });
+//     const total = await VatDeclaration.countDocuments({ company: id });
 
-    res.status(200).json({ total, vatDeclarationsByCompany });
-  } catch (error) {
-    next(error);
-  }
-};
+//     res.status(200).json({ total, vatDeclarationsByCompany });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 const getVatDeclarationById = async (req, res, next) => {
   try {
@@ -94,7 +100,7 @@ const updateVatDeclarationById = async (req, res, next) => {
 module.exports = {
   getAllVatDeclarations,
   getVatDeclarationById,
-  getVatDeclarationsByCompany,
+  // getVatDeclarationsByCompany,
   addVatDeclaration,
   removeVatDeclarationById,
   updateVatDeclarationById,
