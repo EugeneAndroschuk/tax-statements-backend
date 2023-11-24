@@ -82,6 +82,7 @@ const updateVatDeclarationById = async (req, res, next) => {
     if (error) throw HttpError(400, "missing fields");
 
     const { id } = req.params;
+    
     const updatedVatDeclaration = await VatDeclaration.findByIdAndUpdate(
       id,
       req.body,
